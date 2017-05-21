@@ -91,7 +91,7 @@ class ConsumerCallbacks(nsq.connection_callbacks.ConnectionCallbacks):
                 sleeping_connections = [
                     c \
                     for (c, info) \
-                    in self.__consumer.connection_context.items() \
+                    in list(self.__consumer.connection_context.items()) \
                     if info['rdy_count'] == 0]
 
                 self.__logger_rdy.debug("Current sleeping_connections: %s", 
@@ -153,7 +153,7 @@ class ConsumerCallbacks(nsq.connection_callbacks.ConnectionCallbacks):
         return rdy_this
 
     def __get_total_rdy_count(self):
-        connection_context_values = self.__consumer.connection_context.values()
+        connection_context_values = list(self.__consumer.connection_context.values())
         counts = [c['rdy_count'] for c in connection_context_values]
         return sum(counts)
 

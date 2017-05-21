@@ -68,7 +68,7 @@ class Identify(object):
             parameter_phrase = ' '.join(
                 [('%s=[%s]' % (k, v)) 
                  for (k, v) 
-                 in self.__parameters.items()])
+                 in list(self.__parameters.items())])
         else:
             parameter_phrase = '(empty)'
 

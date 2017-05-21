@@ -113,9 +113,7 @@ class Master(object):
 
         while self.__quit_ev.is_set() is False:
             # Remove any connections that are dead.
-            self.__connections = filter(
-                                    lambda (n, c, g): not g.ready(), 
-                                    self.__connections)
+            self.__connections = [n_c_g for n_c_g in self.__connections if not n_c_g[2].ready()]
 
             connected_node_couplets_s = set([
                 (c.managed_connection.context, node)
@@ -281,9 +279,7 @@ class Master(object):
         self.__manage_g.join()
 
     def get_node_count_for_topic(self, topic):
-        return len(filter(
-                    lambda nc: nc.context.topic == topic, 
-                    self.__node_couplets_s))
+        return len([nc for nc in self.__node_couplets_s if nc.context.topic == topic])
 
     @property
     def identify(self):

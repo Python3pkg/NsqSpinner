@@ -1,4 +1,4 @@
 try:
-    str_type = (basestring, unicode)
+    str_type = (str, str)
 except TypeError:
     str_type = str
